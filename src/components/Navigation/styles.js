@@ -60,8 +60,7 @@ export const StyledNavLink = styled(NavLink).attrs({activeClassName})`
   color: #ababab;
 
   &.${activeClassName} {
-    box-shadow: inset 0px -2px 0px 1px #00cec9;
-    border-radius: 2px;
+    box-shadow: inset 0px -2px 0px 0px #00cec9;
     color: #00cec9;
     overflow: hidden;
 

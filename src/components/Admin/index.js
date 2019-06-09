@@ -81,8 +81,6 @@ class UserListBase extends Component {
     )
   }
 }
-
-
 class UserItemBase extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +96,7 @@ class UserItemBase extends Component {
     if (this.state.user) {
       return;
     }
-    
+
     this.setState({loading: true});
 
     this.unsubscribe = this.props.firebase.user(this.props.match.params.id)

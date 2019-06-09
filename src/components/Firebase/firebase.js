@@ -76,11 +76,14 @@ class Firebase {
     })
   }
 
-  // *** USER API ***
+  // *** USERS API ***
 
   user = uid => this.db.collection('users').doc(uid);
-
   users = () => this.db.collection('users');
+
+  // *** TRIPS API ***
+
+  trips = () => this.db.collection('trips');
 }
 
 export default Firebase;
