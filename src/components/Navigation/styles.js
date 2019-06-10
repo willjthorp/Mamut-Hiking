@@ -22,7 +22,11 @@ export const NavItem = styled.li`
   font-size: 0.55rem;
   display: flex;
   flex-direction: column;
-  justify-content: center:
+  justify-content: center;
+
+  ${Icon} {
+    font-size: 0.9rem;
+  }
 `;
 
 export const NavLogo = styled.div`

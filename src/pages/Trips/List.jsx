@@ -2,9 +2,9 @@ import React from 'react';
 import PageHeader from 'components/PageHeader/PageHeader.jsx'
 import styled from 'styled-components';
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
-import * as ROUTES from '../../constants/routes';
-import UpcomingPage from './Upcoming.jsx';
-import PastPage from './Past.jsx';
+import * as ROUTES from 'constants/routes';
+import UpcomingPage from 'pages/Trips/List/Upcoming';
+import PastPage from 'pages/Trips/List/Past';
 const activeClassName = 'sub-nav-item-active'
 
 export const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
@@ -39,14 +39,14 @@ const SubNavItem = styled.li`
 const SubNavList = styled.ul`
   display: flex;
   border-bottom: 1px solid #dadada;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 `
 
 export default () => (
   <div>
-    <Redirect to="/trips/upcoming" />
 
     <PageHeader>Trips</PageHeader>
+
     <nav>
       <SubNavList>
         <SubNavItem>

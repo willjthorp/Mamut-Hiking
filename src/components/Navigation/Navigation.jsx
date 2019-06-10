@@ -9,7 +9,7 @@ const Navigation = ({authUser}) => {
     <Nav>
       <NavList>
         <NavItem>
-          <StyledNavLink to={ROUTES.TRIPS}>
+          <StyledNavLink to={ROUTES.TRIPS_UPCOMING} isActive={(m, l) => l.pathname.split('/')[1] === 'trips'}>
             <Icon className='fas fa-hiking' />
             TRIPS
           </StyledNavLink>

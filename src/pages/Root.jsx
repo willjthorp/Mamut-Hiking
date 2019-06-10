@@ -11,7 +11,7 @@ import PasswordForgetPage from '../components/PasswordForget';
 import HomePage from '../components/Home';
 import AccountPage from '../components/Account';
 import AdminPage from '../components/Admin';
-import TripsPage from './Trips/Trips.jsx';
+import TripsPage from './Trips';
 import * as ROUTES from '../constants/routes';
 import {withAuthentication} from '../components/Session';
 import styled from 'styled-components';
@@ -26,7 +26,7 @@ const App = () => (
 
     <AppContainer>
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route path={ROUTES.TRIPS} component={TripsPage} />
+      <Route path={ROUTES.TRIPS} render={() => <TripsPage />} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
