@@ -15,9 +15,9 @@ const Navigation = ({authUser}) => {
           </StyledNavLink>
         </NavItem>
         <NavItem>
-          <StyledNavLink to={ROUTES.GALLERY}>
+          <StyledNavLink to={ROUTES.PHOTOS}>
             <Icon className='fas fa-camera' />
-            GALLERY
+            PHOTOS
           </StyledNavLink>
         </NavItem>
         <NavItem>

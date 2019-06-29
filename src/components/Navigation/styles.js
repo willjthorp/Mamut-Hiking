@@ -6,6 +6,8 @@ export const Nav = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
+  background: white;
+  z-index: 1001;
 `
 
 export const NavList = styled.ul`
@@ -26,6 +28,7 @@ export const NavItem = styled.li`
 
   ${Icon} {
     font-size: 0.9rem;
+    margin-bottom: 0.3rem;
   }
 `;
 

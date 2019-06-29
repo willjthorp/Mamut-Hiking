@@ -1,11 +1,16 @@
 import React from 'react';
+import { withFirebase } from 'components/Firebase';
 import PageHeader from 'components/PageHeader/PageHeader.jsx'
 import styled from 'styled-components';
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import * as ROUTES from 'constants/routes';
-import UpcomingPage from 'pages/Trips/List/Upcoming';
-import PastPage from 'pages/Trips/List/Past';
+import TripsList from 'components/Trips/TripsList.jsx'
+import moment from 'moment';
 const activeClassName = 'sub-nav-item-active'
+
+const Container = styled.div`
+  padding: 1rem;
+`
 
 export const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
   height: 100%;
@@ -42,29 +47,66 @@ const SubNavList = styled.ul`
   margin-bottom: 0.8rem;
 `
 
-export default () => (
-  <div>
+class TripListPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { upcomingTrips: [], pastTrips: [] };
+  }
 
-    <PageHeader>Trips</PageHeader>
+  componentDidMount() {
+    this.setState({ loading: true });
+    const upcomingTrips = [];
+    const pastTrips = [];
 
-    <nav>
-      <SubNavList>
-        <SubNavItem>
-          <StyledNavLink exact to={ROUTES.TRIPS_UPCOMING}>
-            UPCOMING
-          </StyledNavLink>
-        </SubNavItem>
-        <SubNavItem>
-          <StyledNavLink exact to={ROUTES.TRIPS_PAST}>
-            PAST
-          </StyledNavLink>
-        </SubNavItem>
-      </SubNavList>
-    </nav>
+    this.unsubscribe = this.props.firebase.trips()
+      .onSnapshot(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const array = moment().isAfter(moment.unix(doc.data().startDate.seconds)) ? pastTrips : upcomingTrips;
 
-    <Switch>
-      <Route exact path={ROUTES.TRIPS_UPCOMING} component={UpcomingPage} />
-      <Route exact path={ROUTES.TRIPS_PAST} component={PastPage} />
-    </Switch>
-  </div>
-)
+          array.push({
+            uid: doc.id,
+            ...doc.data(),
+          });
+        })
+
+        this.setState({upcomingTrips, pastTrips, loading: false });
+      });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+    const {upcomingTrips, pastTrips} = this.state;
+
+    console.log({upcomingTrips})
+    return (
+      <Container>
+        <PageHeader>Trips</PageHeader>
+
+        <nav>
+          <SubNavList>
+            <SubNavItem>
+              <StyledNavLink exact to={ROUTES.TRIPS_UPCOMING}>
+                UPCOMING {upcomingTrips.length ? `(${upcomingTrips.length})` : ''}
+              </StyledNavLink>
+            </SubNavItem>
+            <SubNavItem>
+              <StyledNavLink exact to={ROUTES.TRIPS_PAST}>
+                PAST {pastTrips.length ? `(${pastTrips.length})` : ''}
+              </StyledNavLink>
+            </SubNavItem>
+          </SubNavList>
+        </nav>
+
+        <Switch>
+          <Route exact path={ROUTES.TRIPS_UPCOMING} render={props => <TripsList {...props} trips={upcomingTrips} />} />
+          <Route exact path={ROUTES.TRIPS_PAST} render={props => <TripsList {...props} trips={pastTrips} />} />
+        </Switch>
+      </Container>
+    )
+  }
+}
+
+export default withFirebase(TripListPage);
