@@ -35,7 +35,7 @@ class PhotosPage extends React.Component {
       <Container>
         <PageHeader>Photos</PageHeader>
 
-        <div id="instafeed"></div>
+        <div id='instafeed' />
       </Container>
     );
   }

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navigation from 'components/Navigation/Navigation';
 import LandingPage from 'components/Landing';
 import SignUpPage from 'components/SignUp';
@@ -14,14 +11,14 @@ import AdminPage from 'components/Admin';
 import TripsPage from 'pages/Trips';
 import PhotosPage from 'pages/Photos';
 import * as ROUTES from 'constants/routes';
-import {withAuthentication} from 'components/Session';
+import { withAuthentication } from 'components/Session';
 import styled from 'styled-components';
 
 const AppContainer = styled.main`
   padding-bottom: 50px;
   background: #f7f7f7;
   min-height: 100vh;
-`
+`;
 
 const App = () => (
   <Router>
